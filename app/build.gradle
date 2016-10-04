@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+
+android {
+    signingConfigs {
+        Developer {
+            keyAlias 'androidkey'
+            keyPassword 'jucidu190889'
+            storeFile file('/Library/Java/JavaVirtualMachines/jdk1.8.0_74.jdk/Contents/Home/bin/android.keystore')
+            storePassword '123456'
+        }
+    }
+    compileSdkVersion 24
+    buildToolsVersion "23.0.2"
+    defaultConfig {
+        applicationId "android2.iesb.br.redesocial"
+        minSdkVersion 19
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.Developer
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
+    compile 'com.google.android.gms:play-services:9.6.1'
+    testCompile 'junit:junit:4.12'
+}

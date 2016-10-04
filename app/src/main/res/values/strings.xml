@@ -1,0 +1,23 @@
+<resources>
+    *----------App Name----------*
+    <string name="app_name">Rede Social</string>
+    *----------Button----------*
+    <string name="name_btLogin">Login</string>
+    <string name="name_btCadastrar">Cadastrar</string>
+    *----------TextView----------*
+    <string name="name_tvUsuario">Usuário: </string>
+    <string name="name_tvSenha">Senha: </string>
+    <string name="name_tvCadastrar">Cadastrar-se</string>
+    <string name="name_tvNome">Nome: </string>
+    <string name="name_tvSobrenome">Sobrenome: </string>
+    <string name="name_tvConfimaSenha">Confirme a Senha: </string>
+    <string name="name_tvTelefone">Telefone: </string>
+    *----------Title Activity----------*
+    <string name="title_activity_cadastro">Cadastro</string>
+    <string name="title_activity_contatos">Contatos</string>
+    <string name="title_activity_cadastro_contato">Cadastrar Contato</string>
+    <string name="title_activity_mapa">MapaActivity</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_maps">Map</string>
+
+</resources>

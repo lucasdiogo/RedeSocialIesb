@@ -1,0 +1,9 @@
+Fingerprints do certificado:
+	 MD5:  83:DF:D1:DA:83:E2:75:A7:DC:7B:6B:FC:C3:DD:39:0D
+	 SHA1: 99:F2:74:4A:12:9A:C4:0F:21:78:AF:00:B1:35:49:AB:39:97:E8:F0
+	 SHA256: 27:0D:A3:86:C6:42:CE:2E:01:3D:73:CC:1B:53:19:AF:3B:25:21:78:99:54:28:66:55:4C:4E:9D:C6:56:26:CC
+	 Nome do algoritmo de assinatura: SHA1withDSA
+	 Versão: 3
+
+
+AIzaSyBBohovA-Tmp5JVpDLXVTibBh0GpDJRndg
