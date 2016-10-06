@@ -17,6 +17,12 @@
         android:textSize="26dp"
         android:text="Nome"/>
     <TextView
+        android:id="@+id/tvEmailLista"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="xxx@xxx.xxx.xx"/>
+    <TextView
         android:id="@+id/tvTelefoneLista"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

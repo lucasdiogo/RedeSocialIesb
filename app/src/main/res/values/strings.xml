@@ -10,6 +10,7 @@
     <string name="name_tvCadastrar">Cadastrar-se</string>
     <string name="name_tvNome">Nome: </string>
     <string name="name_tvSobrenome">Sobrenome: </string>
+    <string name="name_tvEmail">Email: </string>
     <string name="name_tvConfimaSenha">Confirme a Senha: </string>
     <string name="name_tvTelefone">Telefone: </string>
     *----------Title Activity----------*

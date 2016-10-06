@@ -19,6 +19,7 @@ public class Contatos extends RealmObject{
     private String uuid;
     private String nome;
     private String sobrenome;
+    private String email;
     private String telefone;
     private String foto;
 
@@ -46,6 +47,14 @@ public class Contatos extends RealmObject{
 
     public void setSobrenome(String sobrenome) {
         this.sobrenome = sobrenome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getTelefone() {

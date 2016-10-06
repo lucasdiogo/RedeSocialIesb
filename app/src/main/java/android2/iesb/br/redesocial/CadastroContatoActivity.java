@@ -29,11 +29,13 @@ public class CadastroContatoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 EditText tvNome = (EditText) findViewById(R.id.etNomeContato);
                 EditText tvSobrenome = (EditText) findViewById(R.id.etSobrenomeContato);
+                EditText tvEmail = (EditText) findViewById(R.id.etEmailContato);
                 EditText tvTelefone = (EditText) findViewById(R.id.etTelefoneContato);
 
                 Contatos contato = new Contatos();
                 contato.setNome(tvNome.getText().toString());
                 contato.setSobrenome(tvSobrenome.getText().toString());
+                contato.setEmail(tvEmail.getText().toString());
                 contato.setTelefone(tvTelefone.getText().toString());
                 inserirContato(realm, contato);
                 Intent intent = new Intent(CadastroContatoActivity.this, ContatosActivity.class);
@@ -56,6 +58,7 @@ public class CadastroContatoActivity extends AppCompatActivity {
 
                 contato1.setNome(contato.getNome());
                 contato1.setSobrenome(contato.getSobrenome());
+                contato1.setEmail(contato.getEmail());
                 contato1.setTelefone(contato.getTelefone());
                 contato1.setUuid();
             }

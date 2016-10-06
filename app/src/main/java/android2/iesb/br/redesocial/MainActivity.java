@@ -1,6 +1,9 @@
 package android2.iesb.br.redesocial;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     public  Realm realm;
     private RealmConfiguration realmConfig;
+    public static final String ALARM_RECEIVED_EVENT = "br.iesb.map.ALARM_MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         realmConfig = new RealmConfiguration.Builder(this).build();
         Realm.setDefaultConfiguration(realmConfig);
         realm = Realm.getInstance(realmConfig);
+        createAlarm();
 
 
         Button btLogin = (Button) findViewById(R.id.btLogin);
@@ -54,11 +59,36 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void createAlarm(){
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (60 * 1000), 60 * 1000 , pendingIntent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
     private void validaUsuario(Realm realm, Login login){
         RealmResults<Login> logins  = realm.where(Login.class).equalTo("usuario", login.getUsuario()).findAll();
         if (logins.size() > 0){
-            Intent intent = new Intent(MainActivity.this, ContatosActivity.class);
-            startActivity(intent);
+            String senhaUsuario = logins.get(0).getSenha();
+            String senhaDigitada = login.getSenha();
+
+            if (senhaUsuario.equals(senhaDigitada)) {
+                Intent intent = new Intent(MainActivity.this, ContatosActivity.class);
+                startActivity(intent);
+            }else{
+                Toast.makeText(this,"Usuário ou Senha incorreto.",Toast.LENGTH_SHORT).show();
+            }
         }else {
             Toast.makeText(this,"Usuário ou Senha incorreto.",Toast.LENGTH_SHORT).show();
         }

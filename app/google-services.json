@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "525998290058",
+    "firebase_url": "https://redesocialiesb.firebaseio.com",
+    "project_id": "redesocialiesb",
+    "storage_bucket": "redesocialiesb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525998290058:android:980d52e7f4bb167b",
+        "android_client_info": {
+          "package_name": "android2.iesb.br.redesocial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525998290058-g20eg9v1cua1gs9b8u7nja08sqeuc32c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "android2.iesb.br.redesocial",
+            "certificate_hash": "99F2744A129AC40F2178AF00B13549AB3997E8F0"
+          }
+        },
+        {
+          "client_id": "525998290058-mjmev3d9p4h3ouv5kdtqafee7a6lot6s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdphEu1tusJ0sf1DvXBFlp2rOaKTyJDso"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525998290058-mjmev3d9p4h3ouv5kdtqafee7a6lot6s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

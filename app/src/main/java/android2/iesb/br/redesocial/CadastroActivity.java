@@ -35,6 +35,7 @@ public class CadastroActivity extends AppCompatActivity {
             public void onClick(View view) {
                 EditText tvNome = (EditText) findViewById(R.id.etNome);
                 EditText tvSobrenome = (EditText) findViewById(R.id.etSobrenome);
+                EditText tvEmail = (EditText) findViewById(R.id.etEmail);
                 EditText tvTelefone = (EditText) findViewById(R.id.etTelefone);
                 EditText tvSenha = (EditText) findViewById(R.id.etSenhaCadastro);
                 EditText tvConfirmaSenha = (EditText) findViewById(R.id.etConfirmaSenha);
@@ -44,11 +45,12 @@ public class CadastroActivity extends AppCompatActivity {
                 if (senha2.equals(senha1)) {
                     Login usuarioLogin = new Login();
                     Contatos contato = new Contatos();
-                    usuarioLogin.setUsuario(tvNome.getText().toString());
+                    usuarioLogin.setUsuario(tvEmail.getText().toString());
                     usuarioLogin.setSenha(tvSenha.getText().toString());
                     inserirUsuario(realm, usuarioLogin);
                     contato.setNome(tvNome.getText().toString());
                     contato.setSobrenome(tvSobrenome.getText().toString());
+                    contato.setEmail(tvEmail.getText().toString());
                     contato.setTelefone(tvTelefone.getText().toString());
                     inserirContato(realm, contato);
 
@@ -89,6 +91,7 @@ public class CadastroActivity extends AppCompatActivity {
 
                 contato1.setNome(contato.getNome());
                 contato1.setSobrenome(contato.getSobrenome());
+                contato1.setEmail(contato.getEmail());
                 contato1.setTelefone(contato.getTelefone());
                 contato1.setUuid();
             }
