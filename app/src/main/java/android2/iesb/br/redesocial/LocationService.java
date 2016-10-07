@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -21,7 +22,7 @@ public class LocationService extends Service {
 
     public static final String SERVICE_TERMINATED = "br.iesb.map.SERVICE_TERMINATED";
     private boolean running;
-    Intent sendLocation = new Intent(this, MapsActivity.class);
+    Intent sendLocation = new Intent(MapsActivity.SEND_LOCATION);
     LatLng loc;
 
     @Nullable
@@ -33,6 +34,7 @@ public class LocationService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d("testeService", "Service Create");
         LocalBroadcastManager.getInstance(this).registerReceiver(receiverEncerraService, new IntentFilter(SERVICE_TERMINATED));
 
     }
@@ -40,7 +42,7 @@ public class LocationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         running = true;
-
+        Log.d("testeService", "Service Start");
         new ConsultaLocalizacao().start();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -52,7 +54,8 @@ public class LocationService extends Service {
             super.run();
 
             while (running){
-                sendLocation.putExtra("LOC", loc);
+ //               Log.d("testeService", "Service Executando");
+//                sendLocation.putExtra("LOC", loc);
                 LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(sendLocation);
             }
         }
@@ -61,12 +64,14 @@ public class LocationService extends Service {
     @Override
     public void onDestroy() {
         running = false;
+
         super.onDestroy();
     }
 
     private BroadcastReceiver receiverEncerraService = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.d("testeService", "Service Destroy");
             running = false;
 //            LatLng loc = intent.getParcelableExtra("LOC");
 //            updateMap(loc);

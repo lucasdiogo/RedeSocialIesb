@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -22,14 +23,15 @@ public class AlarmReceiver extends BroadcastReceiver{
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
+        Log.d("testeAlarme", "Alarme Start");
+/*        if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
             LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             LatLng loc = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
 
-/*            Intent updateIntent = new Intent(LocationService.ALARM_RECEIVED_EVENT);
+           Intent updateIntent = new Intent(LocationService.ALARM_RECEIVED_EVENT);
             updateIntent.putExtra("LOC", loc);
-            LocalBroadcastManager.getInstance(context).sendBroadcast(updateIntent);*/
-        }
+            LocalBroadcastManager.getInstance(context).sendBroadcast(updateIntent);
+        } */
     }
 }

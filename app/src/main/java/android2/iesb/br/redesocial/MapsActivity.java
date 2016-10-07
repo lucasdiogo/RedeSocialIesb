@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.location.LocationListener;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -122,8 +123,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private BroadcastReceiver receiverSendLocation = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            LatLng loc = intent.getParcelableExtra("LOC");
-            updateMap(loc);
+ //           Log.d("testeService", "Service UpdateMap");
+/*            LatLng loc = intent.getParcelableExtra("LOC");
+            updateMap(loc); */
         }
     };
 

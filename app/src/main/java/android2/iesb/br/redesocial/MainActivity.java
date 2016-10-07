@@ -10,6 +10,7 @@ import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -34,13 +35,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 //        Firebase.setAndroidContext(this);
 
-        Intent intentService = new Intent(this, LocationService.class);
-        startService(intentService);
 
         realmConfig = new RealmConfiguration.Builder(this).build();
         Realm.setDefaultConfiguration(realmConfig);
         realm = Realm.getInstance(realmConfig);
-        createAlarm();
+
 
 
         Button btLogin = (Button) findViewById(R.id.btLogin);
@@ -68,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        createAlarm();
+       Intent intentService = new Intent(this, LocationService.class);
+        startService(intentService);
     }
 
     private void createAlarm(){
@@ -75,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (60 * 1000), 60 * 1000 , pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (10 * 1000), 10 * 1000 , pendingIntent);
+        Log.d("testeAlarme", "Criar Alarme");
     }
 
     @Override
@@ -87,8 +91,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.d("testeAlarme", "Criar Alarme");
         Intent endIntent = new Intent(LocationService.SERVICE_TERMINATED);
         LocalBroadcastManager.getInstance(this).sendBroadcast(endIntent);
+        stopService(new Intent(this, LocationService.class));
     }
 
     private void validaUsuario(Realm realm, Login login){
