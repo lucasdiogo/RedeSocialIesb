@@ -2,8 +2,12 @@ package android2.iesb.br.redesocial;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.provider.Settings;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +15,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import android.widget.TextView;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -20,12 +26,17 @@ public class MainActivity extends AppCompatActivity {
 
     public  Realm realm;
     private RealmConfiguration realmConfig;
-    public static final String ALARM_RECEIVED_EVENT = "br.iesb.map.ALARM_MESSAGE";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        Firebase.setAndroidContext(this);
+
+        Intent intentService = new Intent(this, LocationService.class);
+        startService(intentService);
+
         realmConfig = new RealmConfiguration.Builder(this).build();
         Realm.setDefaultConfiguration(realmConfig);
         realm = Realm.getInstance(realmConfig);
@@ -70,11 +81,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Intent endIntent = new Intent(LocationService.SERVICE_TERMINATED);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(endIntent);
     }
 
     private void validaUsuario(Realm realm, Login login){
@@ -94,4 +108,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 }
