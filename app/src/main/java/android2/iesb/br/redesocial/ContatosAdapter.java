@@ -1,9 +1,11 @@
 package android2.iesb.br.redesocial;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -17,9 +19,13 @@ import io.realm.RealmList;
 public class ContatosAdapter extends RecyclerView.Adapter<ContatosAdapter.MyViewHolder>{
 
     private List<Contatos> listaContatos;
+    private ContatoOnClickListener contatoOnClickListener;
+    private final Context context;
 
-    public ContatosAdapter (List<Contatos> listaContatos) {
+    public ContatosAdapter(List<Contatos> listaContatos, ContatoOnClickListener contatoOnClickListener, Context context) {
         this.listaContatos = listaContatos;
+        this.context = context;
+        this.contatoOnClickListener = contatoOnClickListener;
     }
 
     @Override
@@ -29,11 +35,20 @@ public class ContatosAdapter extends RecyclerView.Adapter<ContatosAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         Contatos contatos = listaContatos.get(position);
         holder.nome.setText(contatos.getNome());
         holder.email.setText(contatos.getEmail());
         holder.telefone.setText(contatos.getTelefone());
+
+        if (contatoOnClickListener != null){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    contatoOnClickListener.onClickContato(holder.itemView, position);
+                }
+            });
+        }
     }
 
     @Override
@@ -52,4 +67,10 @@ public class ContatosAdapter extends RecyclerView.Adapter<ContatosAdapter.MyView
             telefone = (TextView) view.findViewById(R.id.tvTelefoneLista);
         }
     }
+
+    public interface ContatoOnClickListener{
+        public void onClickContato(View view, int idx);
+    }
+
+
 }

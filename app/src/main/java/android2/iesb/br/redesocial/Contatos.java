@@ -30,7 +30,11 @@ public class Contatos extends RealmObject{
     }
 
     public void setUuid() {
-        uuid = randomUUID().toString();;
+        uuid = randomUUID().toString();
+    }
+
+    public void setUuid2(String uuid){
+        this.uuid = uuid;
     }
 
     public String getNome() {

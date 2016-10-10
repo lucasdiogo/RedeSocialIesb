@@ -20,5 +20,6 @@
     <string name="title_activity_mapa">MapaActivity</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_consulta_contato">ConsultaContatoActivity</string>
 
 </resources>

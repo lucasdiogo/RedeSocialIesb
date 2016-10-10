@@ -42,7 +42,7 @@ public class ContatosActivity extends AppCompatActivity {
 //            listaContatos = (List<Contatos>) results.get(i);
 //        }
         listaContatos = results.subList(0,results.size());
-        contatosAdapter = new ContatosAdapter(listaContatos);
+        contatosAdapter = new ContatosAdapter(listaContatos, onClickContato(), this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(contatosAdapter);
@@ -62,6 +62,9 @@ public class ContatosActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.itcadastrar:
                 Intent intent = new Intent(ContatosActivity.this, CadastroContatoActivity.class);
+                Bundle params = new Bundle();
+                params.putString("funcao","cadastrar");
+                intent.putExtras(params);
                 startActivity(intent);
                 return true;
             case R.id.itbluetooth:
@@ -73,5 +76,24 @@ public class ContatosActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private ContatosAdapter.ContatoOnClickListener onClickContato(){
+        return new ContatosAdapter.ContatoOnClickListener(){
+            @Override
+            public void onClickContato(View view, int idx) {
+                Intent intent = new Intent(ContatosActivity.this, CadastroContatoActivity.class);
+                Bundle params = new Bundle();
+                params.putString("uuid", listaContatos.get(idx).getUuid());
+                params.putString("nome", listaContatos.get(idx).getNome());
+                params.putString("sobreNome", listaContatos.get(idx).getSobrenome());
+                params.putString("telefone", listaContatos.get(idx).getTelefone());
+                params.putString("email", listaContatos.get(idx).getEmail());
+                params.putString("foto", listaContatos.get(idx).getFoto());
+                params.putString("funcao","consultar");
+                intent.putExtras(params);
+                startActivity(intent);
+            }
+        };
     }
 }

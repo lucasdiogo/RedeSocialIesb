@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,11 @@ import android.widget.Toast;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -28,10 +34,18 @@ public class MainActivity extends AppCompatActivity {
     public  Realm realm;
     private RealmConfiguration realmConfig;
 
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
+    private TextView tvUsuario;
+    private TextView tvSenha;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 //        Firebase.setAndroidContext(this);
 
@@ -40,6 +54,27 @@ public class MainActivity extends AppCompatActivity {
         Realm.setDefaultConfiguration(realmConfig);
         realm = Realm.getInstance(realmConfig);
 
+        tvUsuario = (TextView) findViewById(R.id.etUsuario);
+        tvSenha = (TextView) findViewById(R.id.etSenha);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+
+                } else {
+                    // User is signed out
+
+                }
+                // [START_EXCLUDE]
+//                updateUI(user);
+                // [END_EXCLUDE]
+            }
+        };
 
 
         Button btLogin = (Button) findViewById(R.id.btLogin);
@@ -47,14 +82,30 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                TextView tvUsuario = (TextView) findViewById(R.id.etUsuario);
-                TextView tvSenha = (TextView) findViewById(R.id.etSenha);
 
-                Login usuarioLogin = new Login();
-                usuarioLogin.setUsuario(tvUsuario.getText().toString());
-                usuarioLogin.setSenha(tvSenha.getText().toString());
+                mAuth.signInWithEmailAndPassword(tvUsuario.getText().toString(), tvSenha.getText().toString()).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (!task.isSuccessful()){
+                                    Toast.makeText(MainActivity.this,"Usuário ou Senha incorreto.",Toast.LENGTH_SHORT).show();
+                                }else{
+//                                    FirebaseUser user = task.getResult().getUser();
+//                                    if(user != null){
+                                        Intent intent = new Intent(MainActivity.this, ContatosActivity.class);
+                                        startActivity(intent);
+//                                    }else{
+//                                        Toast.makeText(MainActivity.this,"Usuário ou Senha incorreto.",Toast.LENGTH_SHORT).show();
+//                                    }
+                                }
+                            }
+                        }
+                );
 
-                validaUsuario(realm, usuarioLogin);
+              //  Login usuarioLogin = new Login();
+              //  usuarioLogin.setUsuario(tvUsuario.getText().toString());
+              //  usuarioLogin.setSenha(tvSenha.getText().toString());
+
+              //  validaUsuario(realm, usuarioLogin);
 
             }
         });
@@ -78,8 +129,14 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (10 * 1000), 10 * 1000 , pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (60 * 1000), 60 * 1000 , pendingIntent);
         Log.d("testeAlarme", "Criar Alarme");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
@@ -97,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         stopService(new Intent(this, LocationService.class));
     }
 
-    private void validaUsuario(Realm realm, Login login){
+ /*   private void validaUsuario(Realm realm, Login login){
         RealmResults<Login> logins  = realm.where(Login.class).equalTo("usuario", login.getUsuario()).findAll();
         if (logins.size() > 0){
             String senhaUsuario = logins.get(0).getSenha();
@@ -113,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,"Usuário ou Senha incorreto.",Toast.LENGTH_SHORT).show();
         }
 
-    }
+    } */
 
 
 }

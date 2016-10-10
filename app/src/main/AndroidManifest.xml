@@ -11,10 +11,11 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
-    <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
-
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -49,18 +50,21 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
- <!--       <meta-data
+
+        <meta-data
             android:name="com.google.android.gms.version"
-            android:resource="@integer/google_play_services_version" /> -->
+            android:resource="@integer/google_play_services_version" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
 
-<!--        <receiver android:name=".AlarmReceiver">
+        <!--
+            <receiver android:name=".AlarmReceiver">
             <intent-filter>
                 <action android:name="android2.iesb.br.redesocial.ALARM_ACTIVATE" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -72,10 +76,11 @@
                 <action android:name="andoid.intent.action.BOOT_COMPLETED"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-        </service> -->
-        <service android:name=".LocationService"/>
-        <receiver android:name=".AlarmReceiver"/>
+        </service>
+        -->
+        <service android:name=".LocationService" />
 
+        <receiver android:name=".AlarmReceiver" />
 
     </application>
 
